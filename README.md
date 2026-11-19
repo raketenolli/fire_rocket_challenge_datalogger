@@ -42,7 +42,7 @@ Make sure you have the [Arduino IDE](https://www.arduino.cc/en/software/#ide) in
 1. Click the "Upload" (arrow pointing right) button in the top left. You should see some more output, and your datalogger should start blinking an LED
 1. Feel free to change the values in the lines that say `delay(1000);` and click "Upload" again. See how the LED's behavior changes
 
-### Charging the Battery
+## Charging the Battery
 
 Leave the USB cable plugged in and connect the battery to the datalogger.
 The battery will charge automatically whenever the logger is connected to a power source via USB.
@@ -86,6 +86,7 @@ The LED color is used to indicate certain issues which may not be immediately ap
 1. Launch and recover the rocket
 1. Remove the nosecone and the board holding the datalogger
 1. Remove the jumper and wait for the LED to turn solid green again
+1. Disconnect the battery from the datalogger
 
 You can now remove the SD card (will require removing the sensor board) from the datalogger and open its contents on a computer.
 
