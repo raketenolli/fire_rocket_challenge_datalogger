@@ -38,41 +38,55 @@ Make sure you have the [Arduino IDE](https://www.arduino.cc/en/software/#ide) in
 1. Connect your computer and the datalogger board with the USB-C cable
 1. After a moment, an option should appear in the menu under Tools > Port. On Windows, this will be COM1 or so. Select that option
 1. In the menu, select File > Examples > 01.Basics > Blink
-1. Click the "Verify" (checkmark symbol) button in the top left. You should see some output in the black "Output" section at the bottom of the window. Check that there are no error messages.
+1. Click the "Verify" (checkmark symbol) button in the top left. You should see some output in the black "Output" section at the bottom of the window. Check that there are no error messages
 1. Click the "Upload" (arrow pointing right) button in the top left. You should see some more output, and your datalogger should start blinking an LED
-1. Feel free to change the values in the lines that say `delay(1000);` and click "Upload" again. See how the LED's behavior changes.
+1. Feel free to change the values in the lines that say `delay(1000);` and click "Upload" again. See how the LED's behavior changes
+
+### Charging the Battery
 
 Leave the USB cable plugged in and connect the battery to the datalogger.
-The battery will charge automatically when the logger is connected to a power source via USB.
+The battery will charge automatically whenever the logger is connected to a power source via USB.
 
 ## Reading and Recording Sensor Values
 
-1. In the Arduino IDE menu, select File > New Sketch
-1. In the file list above this readme file, select the folder containing the code for your sensor
+1. In the Arduino IDE menu, select File > New Sketch. A "sketch" is Arduino-speak for a code file
+1. In the file list above this readme file (in your browser), select the folder containing the code for your sensor
 1. Open the `.ino` file inside that folder
-1. 
+1. It should show the full code. Click the "Copy raw file" (two overlapping squares) button to the top right of the code
+1. Go back to the Arduino IDE and paste the code into the new, empty sketch
+1. Click the "Verify" button in the top left. Check that there are no error messages
+1. In the menu, select Tools > Serial Monitor. The Serial Monitor displays any data or other messages that the datalogger is sending to your computer
+1. Click the "Upload" button in the top left
+1. Once the upload is complete, you should see some messages in the Serial Monitor window, such as "<sensor name> found!" and "<sensor name> configured!"
+1. The LED should be showing a continuous green light
+1. Connect pins D5 and D6 (the two pins) with a jumper
+1. The LED should start blinking green every second. It is now recording data
+1. Remove the jumper. The LED should go back to continuous green.
 
-# Use
+You can now disconnect the datalogger from the USB cable and the battery.
 
-Format SD card and insert into SD card reader.
-Connect AdaLogger and sensor board with wire.
-Connect battery to AdaLogger.
-See status LED for status (see below).
-Once the logger is ready for recording (solid green light), put a jumper across the D5 and D6 pins.
-The logger will start recording data.
-After recovering the payload, remove the jumper from D5/D6.
-Once the LED goes back to a solid green, you can remove the power supply.
-Logger and sensor can stay connected.
+Having to connect the two pins to start the recording is used to make sure that the data on the SD card does not get corrupted. If the datalogger is disconnected from power while data is being written to the SD card, the data file may no longer be readable, or even the whole SD card would need reformatting.
 
-## Status LED
+### LED Status Indicator and Troubleshooting
 
-- Red: Failed to initialize SD card.
-- Orange: Failed to open root directory on SD card.
-- Yellow: Failed to find/connect to sensor.
-- Green (solid): Ready to record data.
-- Green (blinking on/off every 0.5 s): Recording data.
+The LED color is used to indicate certain issues which may not be immediately apparent, especially if the logger is not connected to a computer and you cannot read messages on the Serial Monitor.
 
-## Charging the battery
+- Red: Failed to initialize SD card. Make sure your SD card is formatted and inserted properly into the SD card slot
+- Orange: Failed to open root directory on SD card. Make sure your SD card is formatted and inserted properly into the SD card slot
+- Yellow: Failed to find/connect to sensor. Either the cable connecting datalogger and sensor board is damaged or not seated correctly, or you chose the wrong code to program the datalogger. The code needs to match the sensor (this may be made simpler in the future)
+- Green (solid): Ready to record data. You are good to go and can connect the jumper
+- Green (blinking on/off every 0.5 s): Recording data. Do not remove the power supply while data is being recorded
 
-Charge the battery by connecting it to the logger and connecting the logger to a USB power source.
-It will automatically run off USB power and charge the battery.
+# Use in Flight
+
+1. Mount the mounting frame to e.g. a balsa board that is cut to the correct length and width of your payload bay (should be 150 mm long and 50 mm in diameter; BT-70 is large enough)
+1. Connect the battery to the datalogger
+1. Wait for the solid green light to appear. Connect the jumper
+1. Insert the board into your payload bay. Close up the payload bay with a nosecone or coupler and make sure it cannot separate (e.g. masking tape). You can do this while on the launch pad
+1. Launch and recover the rocket
+1. Remove the nosecone and the board holding the datalogger
+1. Remove the jumper and wait for the LED to turn solid green again
+
+You can now remove the SD card (will require removing the sensor board) from the datalogger and open its contents on a computer.
+
+
